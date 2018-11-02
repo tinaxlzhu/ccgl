@@ -1,0 +1,174 @@
+﻿<!DOCTYPE HTML>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<!-- 分页样式 -->
+<link href="/asserts/css/pagebar.css" th:href="@{/asserts/css/pagebar.css}" rel="stylesheet" type="text/css" media="all">
+<link href="/asserts/css/github.min.css" th:href="@{/asserts/css/github.min.css}" rel="stylesheet" type="text/css" media="all">
+<style>
+    body{padding-top:50px}.bs-navbar{background-color:#3aa9ff;border-color:#63b8f9}.bs-navbar .navbar-brand{color:#fff}.bs-navbar .navbar-nav>li>a{color:#d4eafc}.bs-head{background-color:#3aa9ff;text-align:left;padding:50px 0}.bs-head h1{font-size:60px;color:#fff}.bs-head .lead{font-size:30px;color:#e8eeff}.bs-footer{padding-top:40px;padding-bottom:30px;margin-top:100px;color:#777;text-align:left;border-top:1px solid #e5e5e5}.bs-footer p{margin-bottom:0}.bs-sidebar{width:180px;background-color:#f7f7f7;margin-top:30px}.bs-sidebar.affix{position:fixed;top:90px}.bs-sidebar .nav>.active>a{font-weight:bold;background-color:transparent;border-left:1px solid #428bca}.page-header{margin:40px 0 20px}.page-header h2{padding-top:80px;margin-top:-45px}.demo{padding:20px;margin:20px 0;background-color:#f7f7f7}.demo p{font-size:15px}.arrow{display:inline-block;overflow:hidden;border-left:5px dashed transparent;border-bottom:5px dashed transparent;border-right:5px dashed transparent;border-top:5px solid #fff;vertical-align:middle}.arrow2{border-left:5px dashed transparent;border-bottom:5px dashed transparent;border-top:5px dashed transparent;border-right:5px solid #ccc}.arrow3{border-top:5px dashed transparent;border-bottom:5px dashed transparent;border-right:5px dashed transparent;border-left:5px solid #ccc}.customBootstrap .pagination>li>a{margin-right:5px;border-radius:2px;background:#fff;color:#333;border-color:#ccc;padding:6px 15px}.customBootstrap .pagination>li>a:hover,.customBootstrap .pagination>li>a:focus{color:#fff;background:#fb9400;border-color:#fb9400}.customBootstrap .pagination>.active>a,.customBootstrap .pagination>.active>a:hover,.customBootstrap .pagination>.active>a:focus{color:#fff;background:#fb9400;border-color:#fb9400}.customBootstrap .pagination .arrow2{margin:3px 8px 5px 0}.customBootstrap .pagination a:hover .arrow2{border-right-color:#fff}.customBootstrap .pagination .arrow3{margin:3px 0 5px 8px}.customBootstrap .pagination a:hover .arrow3{border-left-color:#fff}.pagination2{height:30px;margin:10px 0}.pagination2 a{text-decoration:none;border:solid 1px #c0d3e6;color:#333;border-left-width:0;height:24px!important}.pagination2 a{height:24px!important;display:block;float:left;padding:0 10px;text-align:center;line-height:24px;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:0 1px 2px rgba(0,0,0,.05);box-shadow:0 1px 2px rgba(0,0,0,.05)}.pagination2 .active{background-color:#6babdd;color:#fff;padding:0 10px;border:solid 1px #5c95c1}.pagination2 .prev{border:solid 1px #c0d3e6}.pagination2 .next{border-left-width:0;border-right-width:1px}.pagination2 .active.prev,.pagination2 .active.next{color:#dcdcdc;border-color:#efefef;background:#fff}.pagination2 a:hover{background-color:#cde4f8}.pagination2 .active:hover{background-color:#6babdd}.pagination2 a.disabled{display:none}.pagination4 .page a,.pagination4 .page a:hover{width:100px;text-align:center;border:1px solid #ddd;color:#999;background-color:#fff!important}pre code{background-color:transparent}
+</style>
+<!-- 分页样式 end -->
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" th:href="@{/static/h-ui/css/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" th:href="@{/static/h-ui.admin/css/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" th:href="@{/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" th:href="@{/static/h-ui.admin/skin/default/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css"  th:href="@{/static/h-ui.admin/css/style.css}"/>
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>入库列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 
+首页 <span class="c-gray en">&gt;</span> 商品管理 <span class="c-gray en">&gt;</span> 入库列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+		<div class="text-c">
+			<input type="text" name="goodName" id="goodName" placeholder="商品名称" style="width:250px" class="input-text">
+			<button name="searchGood" id="searchGood" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+		</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
+	<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+	<i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+	<a class="btn btn-primary radius" data-title="添加入库信息" 
+		data-href="add.html" th:attr="data-href=@{/storage}" onclick="Hui_admin_tab(this)" href="javascript:;"><i class="Hui-iconfont">&#xe600;
+	</i> 添加</a></span> <span class="r">共有数据：<strong id="totalSize"></strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" name="" value=""></th>
+					<th>编号</th>
+					<th>商品ID</th>
+					<th>商品名称</th>
+					<th>进货价</th>
+					<th>进货日期</th>
+					<th>进货数量</th>
+					<th>单位</th>
+					<th>备注</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody id="tbody">
+			</tbody>
+			
+		</table>
+		<!-- 分页标签 -->
+          <div style="float: right; ">
+              <ul id="demo4" style="margin: 10px;" class="pagination pagination4">
+			  </ul>
+          </div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js" th:src="@{/lib/jquery/1.9.1/jquery.min.js}"></script> 
+<script type="text/javascript" src="lib/layer/2.4/layer.js" th:src="@{/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js" th:src="@{/static/h-ui/js/H-ui.min.js}"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js" th:src="@{/static/h-ui.admin/js/H-ui.admin.js}"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js" th:src="@{/lib/My97DatePicker/4.8/WdatePicker.js}"></script> 
+<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js" th:src="@{/lib/datatables/1.10.0/jquery.dataTables.min.js}"></script> 
+<script type="text/javascript" src="lib/laypage/1.2/laypage.js" th:src="@{/lib/laypage/1.2/laypage.js}"></script>
+<!-- 分页js -->
+<script type="text/javascript" src="/asserts/js/bootstrap.min.js" th:src="@{/asserts/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/asserts/js/highlight.min.js" th:src="@{/asserts/js/highlight.min.js}"></script>
+<script type="text/javascript" src="/asserts/js/jqPaginator.min.js" th:src="@{/asserts/js/jqPaginator.min.js}"></script>
+<script type="text/javascript" src="/common.js" th:src="@{/common.js}"></script>
+<!-- 分页js end -->
+
+<script type="text/javascript">
+function initData(page){
+	var goodName = $("#goodName").val();
+	var url = "/ccgl/storages/list?goodName="+goodName+"&page="+page+"&pageSize=5";
+	getJsonList(url);
+}
+function renderPage(res){
+	var content = "";
+	if(res.rows.length>0){  
+		$.each(res.rows, function (i, o) {
+			content += "<tr class='text-c'>";
+			content += "<td><input type='checkbox' value='"+o.id+"' name='check'></td>";
+			content += "<td>"+o.id+"</td>";
+			content += "<td>"+o.goodid+"</td>";
+			content += "<td>"+o.goodname+"</td>";
+			content += "<td>"+o.inprice+"</td>";
+			content += "<td>"+o.storagedate+"</td>";
+			
+			content += "<td>"+o.storagenumber+"</td>";
+			content += "<td>"+o.storageunit+"</td>";
+			content += "<td>"+o.storagenote+"</td>";
+
+			content += "<td><a class='btn btn-sm btn-primary' href='/ccgl/storage/"+o.id+"'>编辑</a>"
+			+"<button onclick='deleteObj(\""+o.id+"\")' class='btn btn-sm btn-danger deleteBtn'>删除</button></td>";
+			content += "</tr>";
+		});
+        $('#tbody').html(content);
+        
+	}else{
+        $('#demo4').jqPaginator('option', {
+            totalPages: 1
+        });
+    }
+}
+
+$("#searchGood").click(function(){
+	initData(1);
+});
+
+function deleteObj(id){
+	var url="/ccgl/storage/"+id;
+	layer.confirm('确认要删除吗？',function(){
+		$.ajax({
+			type: 'POST',
+			url: url,
+			type: "DELETE", 
+			success: function(data){
+				alert(data);
+				location.replace(location.href);
+			},
+			error:function(data) {
+				alert("删除失败");
+				location.replace(location.href);
+			},
+		});	
+	});
+}
+
+function datadel(){
+	var obj = document.getElementsByName("check");
+    check_val = [];
+    for(k in obj){
+        if(obj[k].checked)
+            check_val.push(obj[k].value);
+    }
+    layer.confirm('确认要删除吗？',function(){
+    	$.ajax({
+    		type: 'POST',
+    		url: '/ccgl/storages/'+check_val,
+    		type: "DELETE", 
+    		success: function(data){
+    			alert(data);
+    			location.replace(location.href);
+    		},
+    		error:function(data) {
+    			alert("删除失败");
+    			location.replace(location.href);
+    		},
+    	});	
+    });
+}
+</script> 
+</body>
+</html>

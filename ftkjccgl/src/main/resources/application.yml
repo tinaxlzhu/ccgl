@@ -1,0 +1,24 @@
+server:
+  port: 8090 #修改端口
+  context-path: /ccgl  #修改项目访问路径  http://127.0.0.1:8090/ccgl/sayhello
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ccgl
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  thymeleaf:
+    cache: false  #禁止模板引擎缓存
+  messages:
+    basename: i18n.message
+    
+logging:
+  level:
+    com.ftkj.ccgl: debug
+    
+mybatis:
+  # 指定全局配置文件位置
+  config-location: classpath:mybatis/mybatis-config.xml
+  # 指定sql映射文件位置
+  mapper-locations: classpath:mybatis/mapper/*.xml
+    

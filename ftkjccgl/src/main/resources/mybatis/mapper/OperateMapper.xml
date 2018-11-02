@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftkj.ccgl.mapper.OperateMapper" >
+
+  <select id="selectByOperate" resultType="com.ftkj.ccgl.model.Operate" parameterType="com.ftkj.ccgl.model.Operate" >
+    
+		    SELECT o.id,
+		       concat(u.userName, '(', o.userid, ')') username,
+		       o.operatetime,
+		       (case
+		         when o.operateType = 1 then
+		          '入库'
+		         when o.operateType = 2 then
+		          '出库'
+		         else
+		          o.operateType
+		       end) operateTypetest,
+		       o.operateType operateType,
+		       o.remark,
+		       concat(g.goodname, '(', o.goodid, ')') goodname
+		  FROM t_operate o, t_good g, t_user u
+		 WHERE o.goodid = g.id
+		   and u.id = o.userid
+		   
+		   <if test="goodname != null" >
+		       and g.goodname like '%${goodname}%'
+		    </if>  
+		 order by o.id desc
+     
+  </select>
+  
+  <insert id="insert" parameterType="com.ftkj.ccgl.model.Operate" >
+    insert into t_operate (id, userid, operatetime, 
+      operateType, remark, goodid, 
+      storageid)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{operatetime,jdbcType=DATE}, 
+      #{operatetype,jdbcType=INTEGER}, #{remark,jdbcType=CHAR}, #{goodid,jdbcType=INTEGER}, 
+      #{storageid,jdbcType=INTEGER})
+  </insert>
+  
+    <delete id="deleteByPrimaryKeys" parameterType="java.util.List">
+	  	delete from t_operate where id in
+	  	<foreach collection="list" item="item" separator="," open="(" close=")">
+	  		#{item}
+	  	</foreach>
+  </delete>
+ 
+</mapper>

@@ -1,0 +1,232 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="Bookmark" href="" th:href="@{/favicon.ico}" >
+<link rel="Shortcut Icon" href="/favicon.ico" th:href="@{/favicon.ico}" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="static/h-ui/css/H-ui.min.css" th:href="@{/static/h-ui/css/H-ui.min.css}" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/H-ui.admin.css" th:href="@{/static/h-ui.admin/css/H-ui.admin.css}" />
+<link rel="stylesheet" type="text/css" href="lib/Hui-iconfont/1.0.8/iconfont.css" th:href="@{/lib/Hui-iconfont/1.0.8/iconfont.css}" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/skin/default/skin.css" th:href="@{/static/h-ui.admin/skin/default/skin.css}" id="skin" />
+<link rel="stylesheet" type="text/css" href="static/h-ui.admin/css/style.css"  th:href="@{/static/h-ui.admin/css/style.css}"/>
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<!--/meta 作为公共模版分离出去-->
+
+<title>新增入库信息</title>
+<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+<article class="page-container">
+	<form th:action="@{/storage}" method="post" class="form form-horizontal" id="form-storage-add">
+	<input type="hidden" name="_method" value="put" th:if="${storage!=null}"/>
+	<input type="hidden" name="id" th:if="${storage!=null}" th:value="${storage.id}">
+		<div class="row cl" style="width: 650px;">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>商品名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="hidden" id="goodid" name="goodid" th:value="${storage!=null}?${storage.goodid}"/>
+				<input type="text" id="goodname" name="goodname" th:value="${storage!=null}?${storage.goodname}" readonly="readonly" class="input-text"  style="width: 350px;" />
+				
+				<a class="btn btn-primary radius" onClick="modaldemo()">&nbsp;&nbsp;选择&nbsp;&nbsp;</a>
+			</div>
+		</div>
+		<div class="row cl" style="width: 650px;">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>进货价</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width: 350px;" 
+				th:value="${storage!=null}?${storage.inprice}" placeholder="" 
+				id="inprice" name="inprice">
+			</div>
+		</div>
+		
+		<div class="row cl" style="width: 650px;">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>入库数量</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width: 350px;" th:readonly="${storage!=null}"
+				th:value="${storage!=null}?${storage.storagenumber}" placeholder="" 
+				id="storagenumber" name="storagenumber">
+				<input th:type="hidden" class="input-text" style="width: 350px;" 
+				placeholder="" id="storagenumberOld" name="storagenumberOld" th:value="${storage!=null}?${storage.storagenumber}">
+			</div>
+		</div>
+		
+		<div class="row cl" style="width: 650px;" th:block th:if="${storage!=null}" >
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>补充入库量</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input th:type="${storage!=null}?text:hidden" class="input-text" style="width: 350px;" 
+				placeholder="" id="addnumber" name="addnumber" onblur="editstoragenumber()">
+			</div>
+		</div>
+		
+		
+		<div class="row cl" style="width: 650px;">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>出库日期</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" style="width: 350px;"  onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" 
+				id="storagedate" name="storagedate" th:value="${storage!=null}?${storage.storagedate}" class="input-text Wdate">
+			</div>
+		</div>
+		
+		<div class="row cl" style="width: 650px;">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>单位</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width: 350px;" 
+				th:value="${storage!=null}?${storage.storageunit}" placeholder="" 
+				id="storageunit" name="storageunit">
+			</div>
+		</div>
+		
+		<div class="row cl" style="width: 650px;">
+			<label class="form-label col-xs-4 col-sm-3">备注</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" style="width: 350px;" 
+				th:value="${storage!=null}?${storage.storagenote}" placeholder="" 
+				id="storagenote" name="storagenote">
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" th:value="${storage!=null}?'&nbsp;&nbsp;修改&nbsp;&nbsp;':'&nbsp;&nbsp;添加&nbsp;&nbsp;'" value="">
+				<a class="btn btn-primary radius" th:href="@{/storages/}">&nbsp;&nbsp;返回&nbsp;&nbsp;</a>
+			</div>
+		</div>
+	</form>
+
+		<div id="modal-demo" class="modal fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 id="myModalLabel">商品选择框</h3>
+						<a class="close" data-dismiss="modal" aria-hidden="true" href="javascript:void();">×</a>
+					</div>
+					<div class="modal-body">
+						<table id="goodTableListId" class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+							<tr>
+								<td>商品ID</td>
+								<td>商品名称</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<!-- <button class="btn btn-primary" onclick="ok()">确定</button> -->
+						<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js" th:src="@{/lib/jquery/1.9.1/jquery.min.js}"></script> 
+<script type="text/javascript" src="lib/layer/2.4/layer.js" th:src="@{/lib/layer/2.4/layer.js}"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.min.js" th:src="@{/static/h-ui/js/H-ui.min.js}"></script> 
+<script type="text/javascript" src="static/h-ui.admin/js/H-ui.admin.js" th:src="@{/static/h-ui.admin/js/H-ui.admin.js}"></script> <!--/_footer /作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js" th:src="@{/lib/jquery.validation/1.14.0/jquery.validate.js}"></script> 
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js" th:src="@{/lib/jquery.validation/1.14.0/validate-methods.js}"></script> 
+<script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js" th:src="@{/lib/jquery.validation/1.14.0/messages_zh.js}"></script>
+<script type="text/javascript" src="lib/webuploader/0.1.5/webuploader.min.js" th:src="@{/lib/webuploader/0.1.5/webuploader.min.js}" ></script> 
+<script type="text/javascript" src="lib/ueditor/1.4.3/ueditor.config.js" th:src="@{/lib/ueditor/1.4.3/ueditor.config.js}"></script> 
+<script type="text/javascript" src="lib/ueditor/1.4.3/ueditor.all.min.js" th:src="@{/lib/ueditor/1.4.3/ueditor.all.min.js}"> </script> 
+<script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js" th:src="@{/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+$(function(){
+	//表单验证
+	$("#form-storage-add").validate({
+		rules:{
+			goodname:{
+				required:true
+			},
+			inprice:{
+				required:true,
+				number:true
+			},
+			storagenumber:{
+				required:true,
+				number:true
+			},
+			storagedate:{
+				required:true
+			},
+			storageunit:{
+				required:true
+			}
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			form.submit();
+		}
+	});
+});
+
+
+function selGood(element){
+    $("#goodid").val(element.children[0].innerHTML);
+    $("#goodname").val(element.children[1].innerHTML);
+	$("#modal-demo").modal("hide");
+}
+
+function modaldemo(){
+	$.ajax({
+        url: [[@{/getListGoods}]],
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        //data: JSON.stringify({songName : songName,singer : singer}),
+        async: true,
+        success: function(data){
+        	var key="";
+        	var value= "";
+        	var tr = "";
+        	for(var i=0;i<data.length;i++){
+        		key = data[i].id
+        		value = data[i].goodname;
+        		tr+="<tr class='text-c' th:each='good:${goods}' onDblClick = 'selGood(this)'><td>"
+        			+key+"</td><td>"+value+"</td></tr>";
+        	}
+        	$("#goodTableListId").append(tr);
+        	$("#modal-demo").modal("show")
+        }
+    });
+}
+
+
+function accAdd(arg1,arg2){  
+	var r1,r2,m;  
+	try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}  
+	try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}  
+	m=Math.pow(10,Math.max(r1,r2))  
+	return (arg1*m+arg2*m)/m  
+}
+
+function editstoragenumber(){
+	var storagenumber = $("#storagenumberOld").val();
+	var addnumber = $("#addnumber").val();
+	$("#storagenumber").val(accAdd(storagenumber,addnumber));
+}
+
+/*]]>*/
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

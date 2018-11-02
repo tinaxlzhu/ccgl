@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftkj.ccgl.mapper.GoodCategoriesMapper" >
+  <resultMap id="BaseResultMap" type="com.ftkj.ccgl.model.GoodCategories" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goodname" property="goodname" jdbcType="CHAR" />
+    <result column="description" property="description" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, goodname, description
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_goodcategories
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_goodcategories
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftkj.ccgl.model.GoodCategories" >
+    insert into t_goodcategories (id, goodname, description
+      )
+    values (#{id,jdbcType=INTEGER}, #{goodname,jdbcType=CHAR}, #{description,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftkj.ccgl.model.GoodCategories" >
+    insert into t_goodcategories
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodname != null" >
+        goodname,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodname != null" >
+        #{goodname,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftkj.ccgl.model.GoodCategories" >
+    update t_goodcategories
+    <set >
+      <if test="goodname != null" >
+        goodname = #{goodname,jdbcType=CHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftkj.ccgl.model.GoodCategories" >
+    update t_goodcategories
+    set goodname = #{goodname,jdbcType=CHAR},
+      description = #{description,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectGoodCategories" resultType="com.ftkj.ccgl.model.GoodCategories" parameterType="com.ftkj.ccgl.model.GoodCategories" >
+	select * from t_goodcategories g where 1=1
+     <if test="goodname != null" >
+       and g.goodname like '%${goodname}%'
+     </if>
+     order by g.id desc 
+  </select>
+  
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.String" >
+    delete from t_goodcategories
+    where id in #{ids}
+  </delete>
+  
+</mapper>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftkj.ccgl.mapper.StorageMapper" >
+  <resultMap id="BaseResultMap" type="com.ftkj.ccgl.model.Storage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goodid" property="goodid" jdbcType="INTEGER" />
+    <result column="inprice" property="inprice" jdbcType="DOUBLE" />
+    <result column="storagedate" property="storagedate" jdbcType="DATE" />
+    <result column="storagenumber" property="storagenumber" jdbcType="DOUBLE" />
+    <result column="storagenote" property="storagenote" jdbcType="CHAR" />
+    <result column="storageunit" property="storageunit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, goodid, inprice, storagedate, storagenumber, storagenote, storageunit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_storage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_storage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftkj.ccgl.model.Storage" >
+    insert into t_storage (id, goodid, inprice, 
+      storagedate, storagenumber, storagenote, 
+      storageunit)
+    values (#{id,jdbcType=INTEGER}, #{goodid,jdbcType=INTEGER}, #{inprice,jdbcType=DOUBLE}, 
+      #{storagedate,jdbcType=DATE}, #{storagenumber,jdbcType=DOUBLE}, #{storagenote,jdbcType=CHAR}, 
+      #{storageunit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftkj.ccgl.model.Storage" >
+    insert into t_storage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodid != null" >
+        goodid,
+      </if>
+      <if test="inprice != null" >
+        inprice,
+      </if>
+      <if test="storagedate != null" >
+        storagedate,
+      </if>
+      <if test="storagenumber != null" >
+        storagenumber,
+      </if>
+      <if test="storagenote != null" >
+        storagenote,
+      </if>
+      <if test="storageunit != null" >
+        storageunit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodid != null" >
+        #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="inprice != null" >
+        #{inprice,jdbcType=DOUBLE},
+      </if>
+      <if test="storagedate != null" >
+        #{storagedate,jdbcType=DATE},
+      </if>
+      <if test="storagenumber != null" >
+        #{storagenumber,jdbcType=DOUBLE},
+      </if>
+      <if test="storagenote != null" >
+        #{storagenote,jdbcType=CHAR},
+      </if>
+      <if test="storageunit != null" >
+        #{storageunit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+   <update id="updateByPrimaryKeySelective" parameterType="com.ftkj.ccgl.model.Storage" >
+    update t_storage
+    <set >
+      <if test="goodid != null" >
+        goodid = #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="inprice != null" >
+        inprice = #{inprice,jdbcType=DOUBLE},
+      </if>
+      <if test="storagedate != null" >
+        storagedate = #{storagedate,jdbcType=DATE},
+      </if>
+      <if test="storagenumber != null" >
+        storagenumber = #{storagenumber,jdbcType=DOUBLE},
+      </if>
+      <if test="storagenote != null" >
+        storagenote = #{storagenote,jdbcType=CHAR},
+      </if>
+      <if test="storageunit != null" >
+        storageunit = #{storageunit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftkj.ccgl.model.Storage" >
+    update t_storage
+    set goodid = #{goodid,jdbcType=INTEGER},
+      inprice = #{inprice,jdbcType=DOUBLE},
+      storagedate = #{storagedate,jdbcType=DATE},
+      storagenumber = #{storagenumber,jdbcType=DOUBLE},
+      storagenote = #{storagenote,jdbcType=CHAR},
+      storageunit = #{storageunit,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+<select id="selectByStorage" resultType="com.ftkj.ccgl.model.Storage" parameterType="com.ftkj.ccgl.model.Storage" >
+    select t_storage.id,
+       t_storage.goodid,
+       t_storage.inprice,
+       t_storage.storagedate,
+       t_storage.storagenumber,
+       t_storage.storagenote,
+       t_good.goodname goodname,
+			 t_storage.storageunit,
+       t_good.id as goodid 
+  from t_storage, t_good
+ where t_storage.goodid = t_good.id
+ 
+	 <if test="goodname != null" >
+        and t_good.goodname like '%${goodname}%'
+      </if>  
+	  order by  t_storage.id desc
+  </select>
+  
+  <select id="seleMaxId" resultType="int">
+ 	 select ifnull(max(id),1) from t_storage
+  </select>
+  
+   <delete id="deleteByPrimaryKeys" parameterType="java.util.List">
+	  	delete from t_storage where id in
+	  	<foreach collection="list" item="item" separator="," open="(" close=")">
+	  		#{item}
+	  	</foreach>
+  </delete>
+  
+</mapper>

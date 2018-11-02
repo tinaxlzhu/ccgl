@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftkj.ccgl.mapper.StockMapper" >
+  <select id="selectByStock" resultType="com.ftkj.ccgl.model.Stock" parameterType="com.ftkj.ccgl.model.Stock" >
+	    SELECT t_good.id goodid,
+	       t_good.goodname goodname,
+	       (IFNULL(t_storage.storagenumber, 0) -IFNULL(t_outstock.outstocknumber, 0)) goodnumber,
+	       
+	       t_storage.id storageid,
+	       t_storage.inprice inprice,
+	       t_storage.storagedate storagedate,
+	       t_storage.storagenumber storagenumber,
+	       t_storage.storagenote storagenote,
+	       t_storage.storageunit storageunit,
+	       
+	       t_outstock.outstockid     outstockid,
+	       t_outstock.saleprice      saleprice,
+	       t_outstock.outstockdate   outstockdate,
+	       t_outstock.outstocknumber outstocknumber,       
+	       t_outstock.outstocknote outstocknote
+	  FROM t_storage
+	  LEFT JOIN t_good
+	    on t_storage.goodid = t_good.id
+	  LEFT JOIN t_outstock
+	    ON t_storage.id = t_outstock.storageid
+	    
+	    where 1=1
+	 <if test="goodname != null" >
+        and t_good.goodname like '%${goodname}%'
+      </if>  
+      order by t_storage.id desc
+  </select>
+ 
+</mapper>

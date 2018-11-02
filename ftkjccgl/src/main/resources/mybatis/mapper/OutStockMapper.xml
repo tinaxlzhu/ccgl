@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ftkj.ccgl.mapper.OutStockMapper" >
+  <resultMap id="BaseResultMap" type="com.ftkj.ccgl.model.OutStock" >
+    <id column="outstockid" property="outstockid" jdbcType="INTEGER" />
+    <result column="goodid" property="goodid" jdbcType="INTEGER" />
+    <result column="saleprice" property="saleprice" jdbcType="DOUBLE" />
+    <result column="outstockdate" property="outstockdate" jdbcType="DATE" />
+    <result column="outstocknumber" property="outstocknumber" jdbcType="DOUBLE" />
+    <result column="outstocknote" property="outstocknote" jdbcType="CHAR" />
+    <result column="quarter" property="quarter" jdbcType="CHAR" />
+    <result column="storageid" property="storageid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    outstockid, goodid, saleprice, outstockdate, outstocknumber, outstocknote, quarter, 
+    storageid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_outstock
+    where outstockid = #{outstockid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_outstock
+    where outstockid = #{outstockid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ftkj.ccgl.model.OutStock" >
+    insert into t_outstock (outstockid, goodid, saleprice, 
+      outstockdate, outstocknumber, outstocknote, 
+      quarter, storageid)
+    values (#{outstockid,jdbcType=INTEGER}, #{goodid,jdbcType=INTEGER}, #{saleprice,jdbcType=DOUBLE}, 
+      #{outstockdate,jdbcType=DATE}, #{outstocknumber,jdbcType=DOUBLE}, #{outstocknote,jdbcType=CHAR}, 
+      #{quarter,jdbcType=CHAR}, #{storageid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ftkj.ccgl.model.OutStock" >
+    insert into t_outstock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outstockid != null" >
+        outstockid,
+      </if>
+      <if test="goodid != null" >
+        goodid,
+      </if>
+      <if test="saleprice != null" >
+        saleprice,
+      </if>
+      <if test="outstockdate != null" >
+        outstockdate,
+      </if>
+      <if test="outstocknumber != null" >
+        outstocknumber,
+      </if>
+      <if test="outstocknote != null" >
+        outstocknote,
+      </if>
+      <if test="quarter != null" >
+        quarter,
+      </if>
+      <if test="storageid != null" >
+        storageid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outstockid != null" >
+        #{outstockid,jdbcType=INTEGER},
+      </if>
+      <if test="goodid != null" >
+        #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="saleprice != null" >
+        #{saleprice,jdbcType=DOUBLE},
+      </if>
+      <if test="outstockdate != null" >
+        #{outstockdate,jdbcType=DATE},
+      </if>
+      <if test="outstocknumber != null" >
+        #{outstocknumber,jdbcType=DOUBLE},
+      </if>
+      <if test="outstocknote != null" >
+        #{outstocknote,jdbcType=CHAR},
+      </if>
+      <if test="quarter != null" >
+        #{quarter,jdbcType=CHAR},
+      </if>
+      <if test="storageid != null" >
+        #{storageid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ftkj.ccgl.model.OutStock" >
+    update t_outstock
+    <set >
+      <if test="goodid != null" >
+        goodid = #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="saleprice != null" >
+        saleprice = #{saleprice,jdbcType=DOUBLE},
+      </if>
+      <if test="outstockdate != null" >
+        outstockdate = #{outstockdate,jdbcType=DATE},
+      </if>
+      <if test="outstocknumber != null" >
+        outstocknumber = #{outstocknumber,jdbcType=DOUBLE},
+      </if>
+      <if test="outstocknote != null" >
+        outstocknote = #{outstocknote,jdbcType=CHAR},
+      </if>
+      <if test="quarter != null" >
+        quarter = #{quarter,jdbcType=CHAR},
+      </if>
+      <if test="storageid != null" >
+        storageid = #{storageid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where outstockid = #{outstockid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ftkj.ccgl.model.OutStock" >
+    update t_outstock
+    set goodid = #{goodid,jdbcType=INTEGER},
+      saleprice = #{saleprice,jdbcType=DOUBLE},
+      outstockdate = #{outstockdate,jdbcType=DATE},
+      outstocknumber = #{outstocknumber,jdbcType=DOUBLE},
+      outstocknote = #{outstocknote,jdbcType=CHAR},
+      quarter = #{quarter,jdbcType=CHAR},
+      storageid = #{storageid,jdbcType=INTEGER}
+    where outstockid = #{outstockid,jdbcType=INTEGER}
+  </update>
+
+	<select id="selectByOutStock" resultType="com.ftkj.ccgl.model.OutStock" parameterType="com.ftkj.ccgl.model.OutStock" >
+		select   t_outstock.outstockid,
+	       t_outstock.saleprice,
+	       t_outstock.outstockdate,
+	       t_outstock.outstocknumber,
+	       t_outstock.outstocknote,
+
+	       t_outstock.goodid goodid,
+	       t_good.goodname goodname,
+
+		   t_storage.storagenote storagenote,
+		   t_outstock.storageid storageid
+			  from t_outstock
+		LEFT JOIN t_good on t_outstock.goodid = t_good.id
+		LEFT JOIN t_storage on t_storage.id=t_outstock.storageid
+ 
+ 		where 1=1
+	 <if test="goodname != null" >
+        and t_good.goodname like '%${goodname}%'
+      </if>  
+	  order by t_outstock.outstockid desc
+  </select>
+  <select id="maxOutStockId" resultType="int" >
+    select max(outstockid) from t_outstock
+  </select>
+  
+  <delete id="deleteByPrimaryKeys" parameterType="java.util.List">
+	  	delete from t_outstock where outstockid in
+	  	<foreach collection="list" item="item" separator="," open="(" close=")">
+	  		#{item}
+	  	</foreach>
+  </delete>
+</mapper>
