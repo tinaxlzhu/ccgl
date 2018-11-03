@@ -1,7 +1,12 @@
 package com.ftkj.ccgl.dbBak;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Backup {
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
+
     private String user_name;// 数据库用户名
     private String user_psw;// 数据库密码
     private String db_name;// 需要备份的数据库名
@@ -26,7 +31,7 @@ public class Backup {
         else
             this.user_charset = " --default-character-set=" + user_charset;
         this.backup_path = backup_path;
-        this.stmt = "C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\\\mysqldump "
+        this.stmt = "mysqldump "
                 + this.db_name + " -h " + this.host_ip + " -u" + this.user_name
                 + " -p" + this.user_psw + this.user_charset + " --result-file="
                 + this.backup_path;
