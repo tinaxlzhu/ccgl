@@ -48,11 +48,11 @@ public class Backup {
         return run_result;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Backup backup = new Backup("root", "123456", "ccgl", null, "utf8",
                 "d:\\test43434.sql");
         boolean result = backup.backup_run();
         if (result)
             System.out.println("备份成功");
-    }
+    }*/
 }
