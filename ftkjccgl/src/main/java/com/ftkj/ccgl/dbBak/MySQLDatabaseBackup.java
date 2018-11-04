@@ -96,7 +96,7 @@ public class MySQLDatabaseBackup {
             printWriter = new PrintWriter(new OutputStreamWriter(new FileOutputStream(savePath + fileName), "utf8"));  
             //mysqldump -u root -p --single-transaction database1 > backup.sql;
             Process process = Runtime.getRuntime().exec(
-            		"C:\\Program Files\\MySQL\\MySQL Server 5.6\\bin\\mysqldump -h" + hostIP + " -u" + userName + " -p" + password + " --set-charset=UTF8 --single-transaction " + databaseName);  
+            		"mysqldump -h" + hostIP + " -u" + userName + " -p" + password + " --set-charset=UTF8 --single-transaction " + databaseName);  
             InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream(), "utf8");  
             bufferedReader = new BufferedReader(inputStreamReader);  
             String line;  
